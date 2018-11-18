@@ -1,32 +1,10 @@
-import * as restify from 'restify'
+import { Server } from './server/server'
 
-const server = restify.createServer({
-    name: 'meat-api',
-    version: '1.0.0'
-})
-
-server.use(restify.plugins.queryParser())
-
-server.get('/info', [
-    (req, resp, next) => {
-        // if (req.userAgent() && req.userAgent().includes('MSIE 7.0')) {
-        //     let error: any = new Error()
-        //     error.statusCode = 400
-        //     error.message = 'Atualize seu browser'
-        //     return next(error)
-        // }
-        return next()
-    }, (req, resp, next) => {
-        resp.json({
-            browser: req.userAgent(),
-            method: req.method,
-            url: req.href(),
-            path: req.path(),
-            query: req.query
-        });
-        return next();
-    }])
-
-server.listen(3000, () => {
-    console.log('API rodando em http://localhost:3000');
+const server = new Server()
+server.bootstrap().then(server => {
+    console.log('API rodando em: ', server.application.address());
+}).catch(error => {
+    console.log('Servidor falhou ao iniciar');
+    console.error(error)
+    process.exit(1)
 })
