@@ -33,6 +33,11 @@ class UsersRouter extends Router {
                 return next()
             })
         })
+
+        // PUT
+        application.put('/users', (req, resp, next) => {
+
+        })
     }
 }
 

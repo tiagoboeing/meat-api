@@ -30,6 +30,9 @@ class UsersRouter extends router_1.Router {
                 return next();
             });
         });
+        // PUT
+        application.put('/users', (req, resp, next) => {
+        });
     }
 }
 exports.usersRouter = new UsersRouter();
