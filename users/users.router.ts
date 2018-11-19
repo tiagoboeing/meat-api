@@ -26,10 +26,12 @@ class UsersRouter extends Router {
 
         // POST
         application.post('/users', (req, resp, next) => {
-            let user = new User()
-            user.name = req.body.name
-            user.email = req.body.email
-            user.save()
+            let user = new User(req.body)
+            user.save().then(user => {
+                user.password = undefined
+                resp.json(user)
+                return next()
+            })
         })
     }
 }

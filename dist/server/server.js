@@ -17,7 +17,9 @@ class Server {
                     name: 'meat-api',
                     version: '1.0.0'
                 });
+                // trabalhar com JSON
                 this.application.use(restify.plugins.queryParser());
+                this.application.use(restify.plugins.bodyParser());
                 // routes
                 for (let router of routers) {
                     router.applyRoutes(this.application);
