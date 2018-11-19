@@ -4,6 +4,8 @@ import { User } from './users.model'
 
 class UsersRouter extends Router {
     applyRoutes(application: restify.Server) {
+
+        // GET
         application.get('/users', (req, resp, next) => {
             User.find().then(users => {
                 resp.json(users)
@@ -22,7 +24,13 @@ class UsersRouter extends Router {
             })
         })
 
-     
+        // POST
+        application.post('/users', (req, resp, next) => {
+            let user = new User()
+            user.name = req.body.name
+            user.email = req.body.email
+            user.save()
+        })
     }
 }
 
