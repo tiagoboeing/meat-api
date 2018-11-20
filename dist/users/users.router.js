@@ -46,6 +46,18 @@ class UsersRouter extends router_1.Router {
                 return next();
             });
         });
+        // PATCH - atualização parcial
+        // content-type: application/merge-patch+json
+        application.patch('/users/:id', (req, resp, next) => {
+            const options = { new: true };
+            users_model_1.User.findByIdAndUpdate(req.params.id, req.body, options).then(user => {
+                if (user) {
+                    resp.json(user);
+                    return next();
+                }
+                resp.send(404);
+            });
+        });
     }
 }
 exports.usersRouter = new UsersRouter();

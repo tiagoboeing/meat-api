@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const restify = require("restify");
 const mongoose = require("mongoose");
 const environment_1 = require("../common/environment");
+const merge_path_parser_1 = require("./merge-path.parser");
 class Server {
     initializeDb() {
         mongoose.Promise = global.Promise;
@@ -20,6 +21,7 @@ class Server {
                 // trabalhar com JSON
                 this.application.use(restify.plugins.queryParser());
                 this.application.use(restify.plugins.bodyParser());
+                this.application.use(merge_path_parser_1.mergePathBodyParser);
                 // routes
                 for (let router of routers) {
                     router.applyRoutes(this.application);

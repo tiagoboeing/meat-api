@@ -3,6 +3,7 @@ import * as mongoose from 'mongoose'
 
 import { environment } from '../common/environment'
 import { Router } from '../common/router'
+import { mergePathBodyParser } from './merge-path.parser';
 
 export class Server {
 
@@ -27,6 +28,7 @@ export class Server {
                 // trabalhar com JSON
                 this.application.use(restify.plugins.queryParser())
                 this.application.use(restify.plugins.bodyParser())
+                this.application.use(mergePathBodyParser)
 
                 // routes
                 for (let router of routers) {
