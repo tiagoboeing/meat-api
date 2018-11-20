@@ -35,8 +35,19 @@ class UsersRouter extends Router {
         })
 
         // PUT
-        application.put('/users', (req, resp, next) => {
-
+        application.put('/users/:id', (req, resp, next) => {
+            const options = { overwrite: true }
+            User.update({ _id: req.params.id }, req.body, options).exec()
+                .then(result => {
+                    if (result.n) {
+                        return User.findById(req.params.id).exec()
+                    } else {
+                        resp.send(404)
+                    }
+                }).then(user => {
+                    resp.json(user)
+                    return next()
+                })
         })
     }
 }
