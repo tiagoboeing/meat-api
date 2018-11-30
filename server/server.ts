@@ -4,6 +4,7 @@ import * as mongoose from 'mongoose'
 import { environment } from '../common/environment'
 import { Router } from '../common/router'
 import { mergePathBodyParser } from './merge-path.parser';
+import { handleError } from './error.handler';
 
 export class Server {
 
@@ -39,6 +40,8 @@ export class Server {
                     resolve(this.application)
                     // console.log('API rodando em http://localhost:3000');
                 })
+
+                this.application.on('restifyError', handleError)
 
             } catch (error) {
                 reject(error)
