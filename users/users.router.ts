@@ -55,12 +55,25 @@ class UsersRouter extends Router {
         application.patch('/users/:id', (req, resp, next) => {
             const options = { new: true }
             User.findByIdAndUpdate(req.params.id, req.body, options).then(user => {
-                if(user){
+                if (user) {
                     resp.json(user)
                     return next()
                 }
                 resp.send(404)
             })
+        })
+
+        // DELETE
+        application.del('/users/:id', (req, resp, next) => {
+            User.remove({ _id: req.params.id }).exec()
+                .then((cmdResult: any) => {
+                    if (cmdResult.n) {
+                        resp.send(204)
+                    } else {
+                        resp.send(404)
+                    }
+                    return next()
+                })
         })
 
     }
