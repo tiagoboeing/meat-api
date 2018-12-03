@@ -25,7 +25,7 @@ class UsersRouter extends router_1.Router {
                 .catch(next);
         });
         // POST
-        application.post('/users', (req, resp, next) => {
+        application.post('/users/', (req, resp, next) => {
             let user = new users_model_1.User(req.body);
             user.save()
                 .then(this.render(resp, next))
