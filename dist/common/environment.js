@@ -5,5 +5,6 @@ exports.environment = {
     db: {
         connection: process.env.SERVER_PORT ||
             'mongodb://meat-api:meat-api1@ds047146.mlab.com:47146/meat-api'
-    }
+    },
+    security: { saltRounds: process.env.SALT_ROUNDS || 10 }
 };
