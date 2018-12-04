@@ -12,7 +12,19 @@ API modelo para restaurantes
 
 ## Rotas
 
-### Usuários
-- GET: `/users` (listar todos os usuários)
-- GET `/users/:id` (usuário por ID)
-- POST `/users` (inserir usuário, passe o objeto JSON)
+### Users
+- GET, POST, PUT, PATCH, DELETE: `/users`
+- GET `/users/:id` (User by Id)
+- GET `/users?email=jon@doe.com` (User by email)
+
+### Restaurants
+- GET, POST, PUT, PATCH, DELETE: `/restaurants`
+  - GET, PUT: `/restaurants/{_id}/menu`
+
+### Reviews
+- GET, POST, DELETE: `/reviews`
+- GET `/reviews/{_id}` (Review by Id)
+  
+
+## Executar testes
+- Rodar `npm test`
