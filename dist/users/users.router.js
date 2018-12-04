@@ -33,7 +33,7 @@ class UsersRouter extends router_1.Router {
         });
         // PUT
         application.put('/users/:id', (req, resp, next) => {
-            const options = { overwrite: true };
+            const options = { runValidators: true, overwrite: true };
             users_model_1.User.update({ _id: req.params.id }, req.body, options).exec()
                 .then(result => {
                 if (result.n) {
@@ -49,7 +49,7 @@ class UsersRouter extends router_1.Router {
         // PATCH - atualização parcial
         // content-type: application/merge-patch+json
         application.patch('/users/:id', (req, resp, next) => {
-            const options = { new: true };
+            const options = { runValidators: true, new: true };
             users_model_1.User.findByIdAndUpdate(req.params.id, req.body, options)
                 .then(this.render(resp, next))
                 .catch(next);
