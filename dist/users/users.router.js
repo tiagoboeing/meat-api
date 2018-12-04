@@ -24,7 +24,7 @@ class UsersRouter extends model_router_1.ModelRouter {
     }
     applyRoutes(application) {
         application.get('/users', restify.plugins.conditionalHandler([
-            { version: '1.1.0', handler: this.findAll },
+            { version: '1.0.0', handler: this.findAll },
             { version: '2.0.0', handler: [this.findByEmail, this.findAll] }
         ]));
         application.get('/users/:id', [this.validateId, this.findById]);
