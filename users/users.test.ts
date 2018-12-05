@@ -6,23 +6,7 @@ import { usersRouter } from '../users/users.router'
 import { User } from './users.model'
 import * as mongoose from 'mongoose';
 
-let address: string
-let server: Server
-
-beforeAll(() => {
-    environment.db.connection = process.env.DB_URL || 'mongodb://meat-api:meat-api1@ds125684.mlab.com:25684/meat-api-test'
-    environment.server.port = process.env.SERVER_PORT || 3001
-    address = `http://localhost:${environment.server.port}`
-    server = new Server()
-    return server.bootstrap([usersRouter])
-        .then(() => User.remove({}).exec())
-        .catch(console.error)
-})
-
-afterAll(() => {
-    return server.shutdown()
-})
-
+let address: string = (<any>global).address
 
 test('get /users', () => {
     return request(address)
