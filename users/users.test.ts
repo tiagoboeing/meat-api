@@ -52,6 +52,43 @@ test('async post /users', async () => {
         }).catch(fail)
 })
 
+test('get /users/aaa - not found', () => {
+    return request(address)
+        .get('/users/aaa')
+        .then(response => {
+            expect(response.status).toBe(404)
+        }).catch(fail)
+})
+
+test('patch /users/:id', () => {
+    return request(address)
+        .post('/users')
+        .send({
+            name: 'Jon Doe2',
+            email: 'jon@doe.com',
+            password: 'jon123'
+        })
+        .then(response => request(address)
+            .patch(`/users/${response.body._id}`)
+            .send({
+                name: 'Jon Doe - patch'
+            }))
+        .then(response => {
+            expect(response.status).toBe(200)
+            expect(response.body._id).toBeDefined()
+            expect(response.body.name).toBe('Jon Doe - patch')
+            expect(response.body.email).toBe('jon@doe.com')
+            expect(response.body.password).toBeUndefined()
+        })
+        .catch(fail)
+})
+
+// executar somente um teste isolado
+// test.only
+
+// pular teste
+// test.skip
+
 
 // teste de forma assíncrona
 // test('async post /users', async () => {
