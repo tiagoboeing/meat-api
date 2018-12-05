@@ -11,7 +11,8 @@
   "license": "ISC",
   "jest": {
     "globals": {
-      "address": "http://localhost:3001"
+      "address": "http://localhost:3001",
+      "auth": "Bearer https://jwt.io/#debugger-io?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBlbWFpbC5jb20iLCJpYXQiOjE1NDQwMTQzMTB9.TBZDDx7FD2kfOq6tSvS0nJiU1klz8CTcV2_vxwhz2BY"
     },
     "testEnvironment": "node",
     "transform": {

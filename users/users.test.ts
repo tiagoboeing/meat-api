@@ -1,18 +1,20 @@
 import 'jest'
 import * as request from 'supertest'
 
-let address: string = (<any>global).address
+const address: string = (<any>global).address
+const auth: string = (<any>global).auth
 
 test('get /users', () => {
     return request(address)
         .get('/users')
+        .set('Authorization', auth)
         .then(response => {
             expect(response.status).toBe(200)
             expect(response.body.items).toBeInstanceOf(Array)
         }).catch(fail)
 })
 
-test('async post /users', () => {
+test('post /users', () => {
     return request(address)
         .post('/users')
         .send({
@@ -21,6 +23,7 @@ test('async post /users', () => {
             password: 'jon123',
             cpf: '877.401.880-93'
         })
+        .set('Authorization', auth)
         .then(response => {
             expect(response.status).toBe(200)
             expect(response.body._id).toBeDefined()
@@ -34,6 +37,7 @@ test('async post /users', () => {
 test('get /users/aaa - not found', () => {
     return request(address)
         .get('/users/aaa')
+        .set('Authorization', auth)
         .then(response => {
             expect(response.status).toBe(404)
         }).catch(fail)
@@ -47,6 +51,7 @@ test('patch /users/:id', () => {
             email: 'jon@doe.com',
             password: 'jon123'
         })
+        .set('Authorization', auth)
         .then(response => request(address)
             .patch(`/users/${response.body._id}`)
             .send({
@@ -65,6 +70,7 @@ test('patch /users/:id', () => {
 test('delete /users', () => {
     return request(address)
         .post('/users')
+        .set('Authorization', auth)
         .send({
             name: 'User 1',
             email: 'user@12.com',
