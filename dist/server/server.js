@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const environment_1 = require("../common/environment");
 const merge_path_parser_1 = require("./merge-path.parser");
 const error_handler_1 = require("./error.handler");
+const token_parser_1 = require("../security/token.parser");
 class Server {
     initializeDb() {
         mongoose.Promise = global.Promise;
@@ -23,6 +24,7 @@ class Server {
                 this.application.use(restify.plugins.queryParser());
                 this.application.use(restify.plugins.bodyParser());
                 this.application.use(merge_path_parser_1.mergePathBodyParser);
+                this.application.use(token_parser_1.tokenParser);
                 // routes
                 for (let router of routers) {
                     router.applyRoutes(this.application);
