@@ -1,10 +1,5 @@
 import 'jest'
 import * as request from 'supertest'
-import { Server } from '../server/server'
-import { environment } from '../common/environment'
-import { usersRouter } from '../users/users.router'
-import { User } from './users.model'
-import * as mongoose from 'mongoose';
 
 let address: string = (<any>global).address
 
@@ -17,7 +12,7 @@ test('get /users', () => {
         }).catch(fail)
 })
 
-test('async post /users', async () => {
+test('async post /users', () => {
     return request(address)
         .post('/users')
         .send({
@@ -63,6 +58,23 @@ test('patch /users/:id', () => {
             expect(response.body.name).toBe('Jon Doe - patch')
             expect(response.body.email).toBe('jon@doe.com')
             expect(response.body.password).toBeUndefined()
+        })
+        .catch(fail)
+})
+
+test('delete /users', () => {
+    return request(address)
+        .post('/users')
+        .send({
+            name: 'User 1',
+            email: 'user@12.com',
+            password: '123'
+        })
+        .then(response => request(address)
+            .delete(`/users/${response.body._id}`)
+            .send({}))
+        .then(response => {
+            expect(response.status).toBe(204)
         })
         .catch(fail)
 })

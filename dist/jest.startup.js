@@ -7,6 +7,8 @@ const users_router_1 = require("./users/users.router");
 const users_model_1 = require("./users/users.model");
 const reviews_router_1 = require("./reviews/reviews.router");
 const reviews_model_1 = require("./reviews/reviews.model");
+const restaurants_router_1 = require("./restaurants/restaurants.router");
+const restaurants_model_1 = require("./restaurants/restaurants.model");
 let server;
 const beforeAllTests = () => {
     environment_1.environment.db.connection = process.env.DB_URL ||
@@ -15,10 +17,12 @@ const beforeAllTests = () => {
     server = new server_1.Server();
     return server.bootstrap([
         users_router_1.usersRouter,
-        reviews_router_1.reviewsRouter
+        reviews_router_1.reviewsRouter,
+        restaurants_router_1.restaurantRouter
     ])
         .then(() => users_model_1.User.remove({}).exec())
-        .then(() => reviews_model_1.Review.remove({}).exec());
+        .then(() => reviews_model_1.Review.remove({}).exec())
+        .then(() => restaurants_model_1.Restaurant.remove({}).exec());
 };
 const afterAllTests = () => {
     return server.shutdown();
