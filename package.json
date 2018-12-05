@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "bcrypt": "3.0.2",
+    "jsonwebtoken": "8.4.0",
     "mongoose": "5.3.12",
     "restify": "7.2.3",
     "restify-errors": "6.1.1"
@@ -36,6 +37,7 @@
   "devDependencies": {
     "@types/bcrypt": "3.0.0",
     "@types/jest": "23.3.10",
+    "@types/jsonwebtoken": "8.3.0",
     "@types/mongoose": "5.3.1",
     "@types/node": "10.12.12",
     "@types/restify": "^7.2.6",
