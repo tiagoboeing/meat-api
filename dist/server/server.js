@@ -7,6 +7,7 @@ const environment_1 = require("../common/environment");
 const merge_path_parser_1 = require("./merge-path.parser");
 const error_handler_1 = require("./error.handler");
 const token_parser_1 = require("../security/token.parser");
+const logger_1 = require("../common/logger");
 class Server {
     initializeDb() {
         mongoose.Promise = global.Promise;
@@ -20,12 +21,16 @@ class Server {
                 const options = {
                     name: 'meat-api',
                     version: '1.0.0',
+                    log: logger_1.logger
                 };
                 if (environment_1.environment.security.enableHTTPS) {
                     options.certificate = fs.readFileSync(environment_1.environment.security.certificate),
                         options.key = fs.readFileSync(environment_1.environment.security.key);
                 }
                 this.application = restify.createServer(options);
+                this.application.pre(restify.plugins.requestLogger({
+                    log: logger_1.logger
+                }));
                 // trabalhar com JSON
                 this.application.use(restify.plugins.queryParser());
                 this.application.use(restify.plugins.bodyParser());
