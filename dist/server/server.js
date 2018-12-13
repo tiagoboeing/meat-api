@@ -45,6 +45,14 @@ class Server {
                     // console.log('API rodando em http://localhost:3000');
                 });
                 this.application.on('restifyError', error_handler_1.handleError);
+                // (req, resp, route, error)
+                // this.application.on('after', restify.plugins.auditLogger({
+                //     log: logger,
+                //     event: 'after',
+                //     server: this.application
+                // }))
+                // this.application.on('audit', data => {
+                // })
             }
             catch (error) {
                 reject(error);
